@@ -7,10 +7,6 @@ if ! [ -x "$(command -v docker)" ]; then
   
 fi
 
-if [ ! -d JenkinsInstall ]; 
-    then git clone https://github.com/ladorval/JenkinsInstall.git
-fi
-
 cd JenkinsInstall
 sh jenkins-rebuild
 
