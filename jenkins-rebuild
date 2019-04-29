@@ -7,9 +7,6 @@ if ! [ -x "$(command -v docker)" ]; then
   
 fi
 
-cd JenkinsInstall
-sh jenkins-rebuild
-
 export IMG=docker-jenkins-img
 export CNT=docker-jenkins-cnt
 
