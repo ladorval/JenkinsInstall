@@ -1,18 +1,11 @@
 #!/bin/bash
 
-VAGRANT_VAGRANTFILE=JenkinsInstall/Vagrantfile
-
-if [ -f /usr/bin/git ]; then 
-    yum -y install git
+if ! [ -x "$(command -v docker)" ]; then
+  curl -fsSL https://get.docker.com/ | sh 
+  sudo systemctl enable docker
+  sudo systemctl start docker
+  
 fi
-
-if [ -f /usr/bin/curl ]; then 
-    yum -y install curl
-fi
-
-curl -fsSL https://get.docker.com/ | sh
-sudo systemctl enable docker
-sudo systemctl start docker
 
 if [ ! -d JenkinsInstall ]; 
     then git clone https://github.com/ladorval/JenkinsInstall.git
