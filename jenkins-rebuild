@@ -10,7 +10,7 @@ fi
 export IMG=docker-jenkins-img
 export CNT=docker-jenkins-cnt
 
-sudo docker build -t $IMG -f Dockerfile-dev .
+sudo docker build -t $IMG -f Dockerfile .
 
 sudo docker rm -f $CNT
 
