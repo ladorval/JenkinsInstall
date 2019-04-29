@@ -1,0 +1,30 @@
+jenkins:
+    systemMessage: "This Jenkins server is configured automatically by the Jenkins Configuration as Code plugin affectionately known as JCasC. This yaml borrows from https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/demos/jenkins/jenkins.yaml"
+    numExecutors: 1
+
+    globalNodeProperties:
+    - envVars:
+        env:
+        - key: "jenkinsUrl"
+          value: "http://localhost:8000/"
+
+    securityRealm:
+        local:
+          allowsSignup: false
+          users:
+           - id: ladorval
+             password: ${adminpw:-LaDorval}
+
+    authorizationStrategy:
+        loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+
+    crumbIssuer: "standard"
+
+    remotingSecurity:
+        enabled: false
+
+unclassified:
+    location:
+        url: http://127.0.0.1:8000/
+        adminAddress: ladorval@yahoo.com
