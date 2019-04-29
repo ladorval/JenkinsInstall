@@ -1,0 +1,35 @@
+#!/bin/bash
+
+VAGRANT_VAGRANTFILE=JenkinsInstall/Vagrantfile
+
+if [ -f /usr/bin/git ]; then 
+    yum -y install git
+fi
+
+if [ -f /usr/bin/curl ]; then 
+    yum -y install curl
+fi
+
+curl -fsSL https://get.docker.com/ | sh
+sudo systemctl enable docker
+sudo systemctl start docker
+
+if [ ! -d JenkinsInstall ]; 
+    then git clone https://github.com/ladorval/JenkinsInstall.git
+fi
+
+cd JenkinsInstall
+sh jenkins-rebuild
+
+export IMG=docker-jenkins-img
+export CNT=docker-jenkins-cnt
+
+sudo docker build -t $IMG -f Dockerfile-dev .
+
+sudo docker rm -f $CNT
+
+sudo docker run -d -e JENKINS_OPTS=" --httpPort=8000" \
+   --name $CNT \
+   -p 8000:8000 \
+   -v jerkins_home:/var/jenkins_home \
+   $IMG
